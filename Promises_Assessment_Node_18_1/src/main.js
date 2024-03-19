@@ -13,7 +13,22 @@ function ask(question) {
 // TODO: Implement the getFortune function by utilizing the ask function to get the fortune for the question.
 // Hint: Call the ask function with the question and extract the fortune from the response array.
 function getFortune(question) {
-
+  return new Promise((resolve, reject) => {
+    if (!question) {
+      reject("There was an error: A question is required...");
+    } else {
+      tell(question)
+        .then(fortune => {
+          resolve([
+            `Your question was: ${question}`,
+            `Your fortune is: ${fortune}`
+          ]);
+        })
+        .catch(error => {
+          reject(error);
+        });
+    }
+  });
 }
 
 // Function: fullSession
