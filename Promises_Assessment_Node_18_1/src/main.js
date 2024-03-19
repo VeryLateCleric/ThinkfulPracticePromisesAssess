@@ -36,11 +36,36 @@ function getFortune(question) {
 // Returns: Promise that resolves to an array of strings or an error message
 // TODO: Create a full session by combining the welcome, getFortune, and goodbye functions.
 // Hint: Use promise chaining to call the functions in the correct order and concatenate the results.
+
 function fullSession(question) {
+  return new Promise((resolve, reject) => {
+    welcome()
+    .then(welcomeMessage => {
+      if (!question) {
+        reject([
+          welcomeMessage,
+          "There was an error: A question is required...",
+          "Best of luck in the future..."
+        ])
+      } else {
+        getFortune(question)
+          .then(session => {
+            goodbye()
+              .then
+                resolve
+        })
+        .catch(error => {
+          reject(error);
+        })
+      }
+    })
+  })
+
+}
+
   // Call the welcome function.
   // Chain the getFortune function to get the fortune for the question.
   // Chain the goodbye function and concatenate the results with the session.
   // Return a promise that resolves to the final session array or an error message.
-}
 
 module.exports = { getFortune, fullSession };
